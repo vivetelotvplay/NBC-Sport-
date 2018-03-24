@@ -1,49 +1,25 @@
-<!DOCTYPE html>
-<html> <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Demo</title>
-	<script language="JavaScript" type="text/javascript" CHARSET="UTF-8" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-</head>
-<body>
-	
-    <script type="text/javascript" src="https://content.jwplatform.com/libraries/uSYqTTip.js"></script>
-		<script type="text/javascript">jwplayer.key="cbPZjCLEJ+O5oZl0AvaDQqyb50+ydDAD5kEqJuS10Zg=";</script>
-		<div id="vplayer" style="width:100%;height:280;text-align:center;"></div>
+<link rel="stylesheet" href="//releases.flowplayer.org/7.0.4/commercial/skin/skin.css">
+    <style>
 
+   </style>
+   <script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script src="//releases.flowplayer.org/7.0.4/commercial/flowplayer.min.js"></script>
+  <script src="//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js"></script> 
+  <script>
+  flowplayer(function (api) {
+    api.on("load", function (e, api, video) {
+      $("#vinfo").text(api.engine.engineName + " engine playing " + video.type);
+    }); });
+  </script>
 
-			<script type="text/javascript">
-		    jwplayer("vplayer").setup({
-		        sources: [{
-		            file: "http://ss6.domint.net:2102/cvh_str/colorvisionhd/playlist.m3u8",
-		            label: "Auto"
-		        }],
-		        width: $(window).width(),
-		        height: $(window).height(),
-		        preload: "none",
-		        primary: "html5",
-		        cast: {}
-		    });
-		    var jw_retry_count = 0;
-		    jwplayer().onError(function() {
-		        if (jw_retry_count < 6) {
-		            setTimeout(function() {
-		                jw_retry(jwplayer("vplayer").getPlaylistItem()["file"]);
-		            }, 2000);
-		        }
-		    });
+<div class="flowplayer fixed-controls no-toggle no-time play-button obj"
+      style="    width: 85.5%;
+    height: 80%;
+    margin-left: 7.2%;
+    margin-top: 6%;
+    z-index: 1000;" data-key="$812975748999788" data-live="true" data-share="false" data-ratio="0.5625"  data-logo="">
+      <video autoplay="true" stretch="true">
 
-		    function jw_retry($v) {
-		        jwplayer().load([{
-		            sources: [{
-		                file: $v,
-		                label: "Auto"
-		            }]
-		        }]);
-		        jwplayer().play();
-		        jw_retry_count = jw_retry_count + 1;
-		    }
-		</script>
-</body>
-</html>
+         <source type="application/x-mpegurl" src="http://live.wmncdn.net/safaritv2/live2.stream/index.m3u8">
+      </video>   
+   </div>
