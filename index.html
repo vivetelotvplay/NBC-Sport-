@@ -4,33 +4,13 @@
 <title>Test Page</title>
 </head>
 <body>
-<script type='text/javascript' src='http://oxforddigital.tv/streaming/ios/jwplayer.js'></script>
-<div id='mediaspace'>This text will be replaced</div>
-<script type='text/javascript'>
-jwplayer('mediaspace').setup({
-'flashplayer': 'http://oxforddigital.tv/streaming/ios/player.swf',
-'file': 'livehttp?adbe-live-event=liveevent',
-'image': '',
-'bufferlength': '2',
-'streamer': 'rtmp://ec2-54-247-46-119.eu-west-1.compute.amazonaws.com/livepkgr',
-'controlbar': 'over',
-'autostart': 'true',
-'stretching': 'exactfit',
-'width': '640',
-'height': '360',
-'modes': [
-{type: 'flash', src: 'http://oxforddigital.tv/streaming/ios/player.swf'},
-{
-type: 'html5',
-config: {
-levels: [
-{'file': 'http://davcbyhfrl34d.cloudfront.net/hls-live/livepkgr/_definst_/liveevent/livestream.m3u8',
-'provider': 'video'}
-]
-}
-}
-]
-});
-</script>
+<div data-live="true" data-ratio="0.5625" data-share="false" class="flowplayer">
+ 
+   <video data-title="Live stream">
+<source type="application/x-mpegurl"
+        src="http://wms.shared.streamshow.it/carinatv/carinatv/playlist.m3u8">
+   </video>
+ 
+</div>
 </body>
 </html>
