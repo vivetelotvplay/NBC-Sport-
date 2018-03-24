@@ -14,15 +14,15 @@ jwplayer('mediaspace').setup({
 'stretching': 'exactfit',
 'width': '640',
 'height': '360',
-
 'modes': [
 {type: 'flash', src: 'http://oxforddigital.tv/streaming/ios/player.swf'},
 {
 type: 'html5',
 config: {
 levels: [
-'file': "http://d4bej95zf4xye.cloudfront.net/hls-live/livepkgr/_definst_/liveevent/livehttp.m3u8"],
-'provider': 'video'
+{'file': 'http://d4bej95zf4xye.cloudfront.net/hls-live/livepkgr/_definst_/liveevent/livehttp.m3u8',
+'provider': 'video'}
+]
 }
 }
 ]
