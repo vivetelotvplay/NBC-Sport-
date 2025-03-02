@@ -1,441 +1,377 @@
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-<script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="de8942c3-923d-457d-b04e-470507157cf6";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
-
-
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Vivelo TVG - Tienda Online RD </title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="https://vivelotvg.store/vivelotvglogoonlinerd.ico" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-
-
-
-<script type="text/javascript" src="https://cdn.jwplayer.com/libraries/dfAfw1pP.js"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Vivelo TVG - Tienda Online RD</title>
-<style type="text/css">
-<!--
-body {
-    
-    margin:0;
-}
--->
-</style>
-
-
-  
-    <!-- Header-->
-        <header class="bg-dark py-1">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                
-  
-   <title>Player de TV Plasma</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Facturas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
     <style>
-      /* Estilos para el marco del TV plasma */
-      .tv {
-        width: 100%;
-  height: auto;
-  max-width: 365px;
-  background-color: #000;
-  box-shadow: 0 0 50px #fff;
-  border-radius: 20px;
-  overflow: hidden;
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-        
-      }
-
-      /* Estilos para la pantalla del TV plasma */
-      .tv video {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      /* Estilos para el logo del TV plasma */
-      .tv .logo {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        width: 80px;
-        height: 80px;
-        background-color: #fff;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 24px;
-        font-weight: bold;
-        color: #000;
-      }
+        /* Estilos anteriores... */
     </style>
-     <!DOCTYPE html>
-
-    <div class="tv">
-      <iframe src="https://vivelotvg.store/canaIestv.html" width="100%" height="200"></iframe> <br>
-      
+</head>
+<body>
+    <div class="container">
+        <div id="factura-encabezado" class="mb-4">
+            <!-- Nombre de la empresa -->
+            <p style="text-align: center; font-size: 2em;"><strong>VIVELO TVG</strong></p>
+            
+            <!-- Campos de número de factura, NCF, cliente y RNC -->
+            <div class="mb-3">
+                <label for="numeroFactura" class="form-label">Número de Factura:</label>
+                <input type="text" id="numeroFactura" class="form-control no-print" value="01">
+            </div>
+            <div class="mb-3">
+                <label for="ncfFactura" class="form-label">NCF:</label>
+                <input type="text" id="ncfFactura" class="form-control no-print" value="B0100000001">
+            </div>
+            <div class="mb-3">
+                <label for="nombreEmpresa" class="form-label">Cliente:</label>
+                <input type="text" id="nombreEmpresa" class="form-control no-print" placeholder="Ingrese el nombre del cliente">
+            </div>
+            <div class="mb-3">
+                <label for="rncEmpresa" class="form-label">RNC:</label>
+                <input type="text" id="rncEmpresa" class="form-control no-print" placeholder="Ingrese el RNC">
+            </div>
+            <p style="text-align: left; font-size: 1em;"><strong>Fecha:</strong> <span id="fechaFactura"></span></p>
+        </div>
+        <div class="mb-3">
+            <label for="codigoProducto" class="form-label">Escanear Código del Producto:</label>
+            <input type="text" class="form-control" id="codigoProducto" placeholder="Escanee el código aquí">
+        </div>
+        <div class="mb-3">
+            <label for="cantidadProducto" class="form-label">Cantidad:</label>
+            <input type="number" class="form-control" id="cantidadProducto" placeholder="Ingrese la cantidad">
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>ITBIS (18%)</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody id="tablaProductos">
+                <!-- Los productos aparecerán aquí -->
+            </tbody>
+        </table>
+        <div class="text-end">
+            <button id="generarFactura" class="btn btn-primary">Generar Factura</button>
+            <button id="verInventario" class="btn btn-secondary">Inventario</button>
+        </div>
     </div>
 
-  </body>
-</html>
-  
-  
-<br>
+    <!-- Modal Inventario -->
+    <div id="modalInventario" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModalInventario">&times;</span>
+            <h5>Inventario de Productos</h5>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                        <th>Costo</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaInventario">
+                    <!-- Inventario aparecerá aquí -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-        
-<!DOCTYPE html>
-<html>
-<head>
-  <style>
-    /* Estilos para los botones */
-    .button-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin: 10px 0;
-    }
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Inicializar valores desde localStorage o con valores predeterminados
+            let numeroFactura = localStorage.getItem("numeroFactura") || "01";
+            let ncfFactura = localStorage.getItem("ncfFactura") || "B0100000001";
 
-    .button {
-      display: inline-block;
-      padding: 10px 20px;
-      font-size: 16px;
-      font-weight: bold;
-      text-decoration: none;
-      color: #ffffff;
-      background-color: #45d151;
-      border-radius: 4px;
-      border: none;
-      transition: background-color 0.3s ease;
-      margin-bottom: 10px;
-    }
+            // Asignar valores iniciales a los campos
+            document.getElementById("numeroFactura").value = numeroFactura;
+            document.getElementById("ncfFactura").value = ncfFactura;
 
-    .button:last-child {
-      margin-right: 0;
-    }
+            // Mostrar la fecha actual
+            const fechaActual = new Date().toLocaleDateString();
+            document.getElementById("fechaFactura").textContent = fechaActual;
 
-    .button:hover {
-      background-color: #040e59;
-    }
-  </style>
-</head>
-<body>
-  <div class="button-container">
-    <a href="https://vivelotvg.store/Smartprem2.0.apk" class="button">SMART VIP</a>
-    <a href="https://vivelotvg.store/magis_tv_v5.2.2.apk" class="button">MAGIS TV</a>
-    <a href="http://vivelotvg.store/MVIE.html" class="button">ESTREN0S GRATIS</a>
-  </div>
+            // Función para incrementar el número de factura
+            function incrementarNumeroFactura() {
+                let numero = parseInt(numeroFactura, 10);
+                numero++;
+                numeroFactura = numero.toString().padStart(2, "0"); // Asegurar 2 dígitos
+                localStorage.setItem("numeroFactura", numeroFactura);
+                document.getElementById("numeroFactura").value = numeroFactura;
+            }
+
+            // Función para incrementar el NCF
+            function incrementarNCF() {
+                let numeroNCF = parseInt(ncfFactura.slice(1), 10); // Extraer solo los números
+                numeroNCF++;
+                ncfFactura = "B" + numeroNCF.toString().padStart(9, "0"); // Asegurar 10 dígitos
+                localStorage.setItem("ncfFactura", ncfFactura);
+                document.getElementById("ncfFactura").value = ncfFactura;
+            }
+
+            // Incrementar valores al generar una factura
+            document.getElementById("generarFactura").addEventListener("click", function () {
+                incrementarNumeroFactura();
+                incrementarNCF();
+                generarFactura();
+            });
+
+            // Permitir edición manual de los campos
+            document.getElementById("numeroFactura").addEventListener("change", function () {
+                numeroFactura = this.value;
+                localStorage.setItem("numeroFactura", numeroFactura);
+            });
+
+            document.getElementById("ncfFactura").addEventListener("change", function () {
+                ncfFactura = this.value;
+                localStorage.setItem("ncfFactura", ncfFactura);
+            });
+
+            // Resto del código anterior...
+            const productos = {
+                "123": { descripcion: "Producto A", precio: 100, costo: 50, cantidad: 10 },
+                "124": { descripcion: "Producto B", precio: 200, costo: 120, cantidad: 15 },
+                "125": { descripcion: "Producto C", precio: 150, costo: 80, cantidad: 8 }
+            };
+
+            // Agregar productos a la tabla al presionar Enter en el campo de código de producto
+            document.getElementById("codigoProducto").addEventListener("keypress", function (e) {
+                if (e.key === 'Enter') {
+                    const codigo = e.target.value.trim();
+                    const cantidad = parseInt(document.getElementById("cantidadProducto").value) || 1;
+                    agregarProducto(codigo, cantidad);
+                    e.target.value = ""; // Limpia el campo de entrada
+                    document.getElementById("cantidadProducto").value = ""; // Limpia la cantidad
+                }
+            });
+
+            // Agregar productos a la tabla al presionar Enter en el campo de cantidad
+            document.getElementById("cantidadProducto").addEventListener("keypress", function (e) {
+                if (e.key === 'Enter') {
+                    const codigo = document.getElementById("codigoProducto").value.trim();
+                    const cantidad = parseInt(e.target.value) || 1;
+                    agregarProducto(codigo, cantidad);
+                    document.getElementById("codigoProducto").value = ""; // Limpia el campo de código de producto
+                    e.target.value = ""; // Limpia el campo de cantidad
+                }
+            });
+
+            function agregarProducto(codigo, cantidad) {
+                if (productos[codigo]) {
+                    const tabla = document.getElementById("tablaProductos");
+                    const producto = productos[codigo];
+                    let filaExistente = null;
+
+                    // Verificar si el producto ya está en la tabla
+                    document.querySelectorAll("#tablaProductos tr").forEach(function (fila) {
+                        if (fila.children[0].innerText === producto.descripcion) {
+                            filaExistente = fila;
+                        }
+                    });
+
+                    if (filaExistente) {
+                        // Actualizar la cantidad y el total si el producto ya existe
+                        let cantidadActual = parseInt(filaExistente.children[1].innerText);
+                        cantidadActual += cantidad;
+                        filaExistente.children[1].innerText = cantidadActual;
+                        const subtotal = producto.precio * cantidadActual;
+                        const itbis = subtotal * 0.18;
+                        const total = subtotal + itbis;
+                        filaExistente.children[3].innerText = `$${itbis.toFixed(2)}`;
+                        filaExistente.children[4].innerText = `$${total.toFixed(2)}`;
+                        // Actualizar el inventario
+                        producto.cantidad -= cantidad;
+                    } else {
+                        // Crear fila para la tabla si el producto no existe
+                        const itbis = producto.precio * cantidad * 0.18;
+                        const total = (producto.precio * cantidad) + itbis;
+
+                        const fila = document.createElement("tr");
+                        fila.innerHTML = `
+                            <td>${producto.descripcion}</td>
+                            <td>${cantidad}</td>
+                            <td style="text-align: right;">$${producto.precio.toFixed(2)}</td>
+                            <td style="text-align: right;">$${itbis.toFixed(2)}</td>
+                            <td style="text-align: right;">$${total.toFixed(2)}</td>
+                        `;
+                        tabla.appendChild(fila);
+                        // Actualizar el inventario
+                        producto.cantidad -= cantidad;
+                    }
+                } else {
+                    alert("Producto no encontrado");
+                }
+            }
+
+            // Generar factura
+            function generarFactura() {
+                const numeroFactura = document.getElementById("numeroFactura").value || "01";
+                const ncfFactura = document.getElementById("ncfFactura").value || "B0100000001";
+                const nombreEmpresa = document.getElementById("nombreEmpresa").value || "";
+                const rncEmpresa = document.getElementById("rncEmpresa").value || "";
+
+                let facturaContent = `
+                    <div style="width: 72mm; margin: 0 auto; text-align: center;">
+                        <div>
+                            <h2 style="font-size: 1.5em;">Vívelo Tvg S.R.L</h2>
+                            <p style="font-size: 1em;">
+                                Av. San Vicente de Paul #112, 2do piso<br>
+                                Contacto: 829-905-0573
+                            </p>
+                            <p style="font-size: 1em;">
+                                <strong>RNC:</strong> 133-26115-4<br>
+                                <strong>Fecha:</strong> ${new Date().toLocaleDateString()}
+                            </p>
+                        </div>
+                        <div style="text-align: left; font-size: 0.9em;">
+                            <p><strong>Factura No:</strong> ${numeroFactura}</p>
+                            <p><strong>NCF:</strong> ${ncfFactura}</p>
+                            <p><strong>Cliente:</strong> ${nombreEmpresa}</p>
+                            <p><strong>RNC:</strong> ${rncEmpresa}</p>
+                        </div>
+                        <th style="text-align: left; width: 50%;">FACTURA DE CRÉDITO FISCAL</th>
+                        <hr>
+                        <h4 style="font-size: 1.2em; text-align: center;">Detalles de Productos</h4>
+                        <table style="width: 100%; font-size: 0.9em; text-align: left; margin-top: 10px;">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: left; width: 50%;">Descripcion</th>
+                                    <th style="text-align: right; width: 50%;">Detalles</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+
+                let totalFactura = 0;
+                document.querySelectorAll("#tablaProductos tr").forEach(function (fila) {
+                    const descripcion = fila.children[0].innerText;
+                    const cantidad = parseFloat(fila.children[1].innerText);
+                    const precioUnitario = parseFloat(fila.children[2].innerText.replace('$', ''));
+                    const itbis = precioUnitario * cantidad * 0.18;
+                    const subtotal = precioUnitario * cantidad;
+                    const total = subtotal + itbis;
+                    totalFactura += total;
+
+                    facturaContent += `
+                        <tr>
+                            <td style="text-align: left;">${descripcion}</td>
+                            <td style="text-align: right;">
+                                <div><strong>Cant.:</strong> ${cantidad}</div>
+                                <div><strong>P. Unit:</strong> $${precioUnitario.toFixed(2)}</div>
+                                <div><strong>ITBIS (18%):</strong> $${itbis.toFixed(2)}</div>
+                                <div><strong>Subtotal:</strong> $${subtotal.toFixed(2)}</div>
+                                <div><strong>Total:</strong> $${total.toFixed(2)}</div>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                facturaContent += `
+                            </tbody>
+                        </table>
+                        <hr>
+                        <p style="font-size: 1.5em; font-weight: bold; text-align: center;"><strong>Total:</strong> $${totalFactura.toFixed(2)}</p>
+                        <hr>
+                        <div style="margin-top: 20px; font-size: 0.9em; text-align: left;">
+                            <p style="font-size: 0.8em; text-align: center; margin-top: 10px;">Todos nuestros artículos de ventas, tienen 15 días de garantía para cambio. Los requisitos son: el artículo no puede estar mojado, desalmado y debe tener sus sellos de seguridad.</p>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                                <div style="width: 45%; text-align: center;">
+                                    <p><strong>Vendedor:</strong></p>
+                                    <p style="margin-bottom: 5px;">Gregory</p>
+                                    <div style="border-bottom: 1px solid black; width: 100%; height: 20px; margin: auto;"></div>
+                                </div>
+                                <div style="width: 45%; text-align: center;">
+                                    <p><strong>Recibido:</strong></p>
+                                    <div style="border-bottom: 1px solid black; width: 100%; height: 20px; margin: auto;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="text-align: center; margin-top: 20px;">
+                            <p style="font-size: 0.9em;"><strong>Codigo QR:</strong></p>
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?data=Factura%20${numeroFactura}%20NCF%20${ncfFactura}&size=100x100" alt="QR Code" style="margin: 0 auto; display: block;">
+                        </div>
+                    </div>
+                `;
+
+                const printWindow = document.createElement('iframe');
+                printWindow.name = "printFrame";
+                printWindow.style.position = "absolute";
+                printWindow.style.top = "-1000px";
+                printWindow.style.left = "-1000px";
+                document.body.appendChild(printWindow);
+
+                const printDocument = printWindow.contentWindow.document;
+                printDocument.open();
+                printDocument.write(`
+                    <html>
+                    <head>
+                        <title>Factura</title>
+                        <style>
+                            body {
+                                font-family: Arial, sans-serif;
+                                width: 72mm;
+                                margin: 0 auto;
+                                text-align: center;
+                            }
+                            table {
+                                border-collapse: collapse;
+                                width: 100%;
+                            }
+                            th, td {
+                                border: 1px solid #ddd;
+                                padding: 4px;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        ${facturaContent}
+                    </body>
+                    </html>
+                `);
+                printDocument.close();
+
+                printWindow.contentWindow.focus();
+                printWindow.contentWindow.print();
+            }
+
+            // Mostrar inventario
+            document.getElementById("verInventario").addEventListener("click", function () {
+                const tablaInventario = document.getElementById("tablaInventario");
+                tablaInventario.innerHTML = "";
+                for (const codigo in productos) {
+                    const producto = productos[codigo];
+                    const fila = document.createElement("tr");
+                    fila.innerHTML = `
+                        <td>${codigo}</td>
+                        <td>${producto.descripcion}</td>
+                        <td>${producto.cantidad}</td>
+                        <td>$${producto.costo.toFixed(2)}</td>
+                        <td>$${producto.precio.toFixed(2)}</td>
+                    `;
+                    tablaInventario.appendChild(fila);
+                }
+                document.getElementById("modalInventario").style.display = "block";
+            });
+
+            // Cerrar modal inventario
+            document.getElementById("closeModalInventario").addEventListener("click", function () {
+                document.getElementById("modalInventario").style.display = "none";
+            });
+
+            window.onclick = function(event) {
+                const modal = document.getElementById("modalInventario");
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        });
+    </script>
 </body>
 </html>
-
- 
-                </div>
-            </div>
-        </header>
-    
-    
-<!DOCTYPE html>
-<html>
-<head>
-  <style>
-    .marquee {
-      text-transform: uppercase;
-      color: blue;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-  </style>
-</head>
-<body>
-  <!-- Resto del contenido de tu p�gina web -->
-
-  <marquee class="marquee" behavior="scroll" direction="left">- Envios a todas las estaciones del metro por $100 pesos - Envios Distrito Nacional por $350 pesos - Envios a las provincias a traves de Vimenpaq por $250 pesos</marquee>
-
-  <!-- Resto del contenido de tu p�gina web -->
-
-  <script>
-    // Obtener la etiqueta marquee
-    var marquee = document.getElementsByClassName("marquee")[0];
-    // Obtener el texto original
-    var textoOriginal = marquee.innerText;
-
-    // Convertir el texto a may�sculas
-    var textoMayusculas = textoOriginal.toUpperCase();
-    // Asignar el texto en may�sculas al marquee
-    marquee.innerText = textoMayusculas;
-  </script>
-</body>
-</html>
-
-
-
-
-
-
-
-<section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- OFERTA badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Oferta</div>
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://vivelotvg.store/firetv4k.png" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">FireTV Stick 4K</h5>
-                                   <!-- estrellas-->
-                                   <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                   
-                                    <!-- Product price-->
-                                      $2,400 Pesos
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="https://api.whatsapp.com/send?phone=+18299050573&text=Saludos,%20vengo%20de%20su%20pagina%20web%20y%20necesito%20informacion%20sobre%20el%20FireTV%204K%20de%202,400%20Pesos.%20Gracias%20">PEDIR AHORA</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Oferta</div>
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://vivelotvg.store/convertidortvbox.png" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">TvBox Android</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                               $1,500 Pesos
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="https://api.whatsapp.com/send?phone=+18299050573&text=Saludos,%20acabo%20de%20ver%20un%20TvBox%20en%20su%20pagina%20web%20y%20me%20interesa%20obtener%20informacion.%20Gracias.">PEDIR AHORA</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Oferta</div>
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://vivelotvg.store/CONSOLAX2RETRO.png" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Consola Retro +64</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    $2,900 Pesos
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="https://wa.me/18299050573?text=Saludos%2C+vengo+de+su+pagina+web+y+me+gustaria+saber+mas+informacion+de+la+consola+retro+x2..">PEDIR AHORA</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://vivelotvg.store/Magistvla212.png" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">MagisTV (1MES)</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    $550 Pesos ($9USD)
-                                    
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="https://api.whatsapp.com/send?phone=+18299050573&text=Saludos,%20acabo%20de%20ver%20la%20App%20MagisTV%20en%20su%20pagina%20web%20y%20me%20interesa%20obtener%20informacion.%20Gracias.">PEDIR AHORA</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Oferta</div>
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://vivelotvg.store/auricularesambie.png" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Auriculares Bluetooth</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    $1,500 Pesos
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="https://wa.me/18299050573?text=Saludos%2C+vengo+de+su+pagina+web+y+me+gustaria+saber+mas+informacion+de+los+Auriculares+Ambie.">PEDIR AHORA</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://vivelotvg.store/repetidorwifi.png" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Repetidor Inalambrico</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    $900 Pesos
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="https://api.whatsapp.com/send?phone=+18299050573&text=Saludos,%20acabo%20de%20ver%20un%20Repetidor%20Wifi%20en%20su%20pagina%20web%20y%20me%20interesa%20obtener%20informacion.%20Gracias.">PEDIR AHORA</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Oferta</div>
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://vivelotvg.store/controltvbox.png" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Control Para TvBox</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    $400 Pesos
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="https://api.whatsapp.com/send?phone=+18299050573&text=Saludos,%20acabo%20de%20ver%20un%20Control%20para%20TvBox%20en%20su%20pagina%20web%20y%20me%20interesa%20obtener%20informacion.%20Gracias.">PEDIR AHORA</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://vivelotvg.store/controlesfiretv.png" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Control Para FireTV</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    $1,000 Pesos
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="https://api.whatsapp.com/send?phone=+18299050573&text=Saludos,%20acabo%20de%20ver%20Controles%20para%20FireTV%20en%20su%20pagina%20web%20y%20me%20interesa%20obtener%20informacion.%20Gracias.">PEDIR AHORA</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-                    
-        </section>
-        <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; ViveloTVG 2023 -</p></div>
-        </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-    </body>
-</html>
-
-
