@@ -56,7 +56,7 @@
             </div>
             <div class="mb-3">
                 <label for="ncfFactura" class="form-label">NCF:</label>
-                <input type="text" id="ncfFactura" class="form-control no-print" value="B0100000001" readonly>
+                <input type="text" id="ncfFactura" class="form-control no-print" value="B0100000001">
             </div>
             <div class="mb-3">
                 <label for="nombreEmpresa" class="form-label">Cliente:</label>
@@ -141,26 +141,21 @@
                 document.getElementById("numeroFactura").value = numeroFactura;
             }
 
-            // Función para incrementar el NCF
-            function incrementarNCF() {
-                let numeroNCF = parseInt(ncfFactura.slice(1), 10); // Extraer solo los números después de la B
-                numeroNCF++;
-                ncfFactura = "B" + numeroNCF.toString().padStart(9, "0"); // Asegurar 10 dígitos en total (B + 9 dígitos)
-                localStorage.setItem("ncfFactura", ncfFactura);
-                document.getElementById("ncfFactura").value = ncfFactura;
-            }
-
             // Incrementar valores al generar una factura
             document.getElementById("generarFactura").addEventListener("click", function () {
                 generarFactura();
                 incrementarNumeroFactura();
-                incrementarNCF();
             });
 
-            // Permitir edición manual del número de factura (pero no del NCF que es readonly)
+            // Permitir edición manual del número de factura y NCF
             document.getElementById("numeroFactura").addEventListener("change", function () {
                 numeroFactura = this.value;
                 localStorage.setItem("numeroFactura", numeroFactura);
+            });
+
+            document.getElementById("ncfFactura").addEventListener("change", function () {
+                ncfFactura = this.value;
+                localStorage.setItem("ncfFactura", ncfFactura);
             });
 
             // Resto del código anterior...
