@@ -1,0 +1,5 @@
+# Chat Agent Requirements
+# Este proyecto utiliza solo la biblioteca estándar de Python
+# No se requieren dependencias externas
+
+# Python 3.6+ es requerido

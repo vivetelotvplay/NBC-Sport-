@@ -1,0 +1,19 @@
+{
+  "responses": {
+    "hola": "¡Hola! Soy el agente de chat de NBC Sport. ¿En qué puedo ayudarte?",
+    "ayuda": "Puedo responder preguntas sobre deportes, eventos y horarios. También puedes agregar nuevas instrucciones usando el comando '/agregar'.",
+    "deportes": "NBC Sport transmite una amplia variedad de deportes incluyendo fútbol, básquetbol, béisbol, hockey y más.",
+    "horarios": "Los horarios de transmisión varían según el evento. Por favor, visita nuestro sitio web para información actualizada.",
+    "contacto": "Puedes contactarnos a través de nuestro sitio web o redes sociales oficiales.",
+    "adios": "¡Hasta luego! Que tengas un excelente día.",
+    "gracias": "¡De nada! Estoy aquí para ayudarte.",
+    "futbol": "NBC Sport transmite los mejores partidos de fútbol. Consulta nuestra programación para horarios específicos.",
+    "basquetbol": "Disfruta de la mejor acción del básquetbol en NBC Sport, incluyendo la NBA y más.",
+    "beisbol": "NBC Sport te trae toda la emoción del béisbol, incluyendo la MLB.",
+    "noticias": "Visita nuestro sitio web para las últimas noticias deportivas y actualizaciones en tiempo real.",
+    "streaming": "NBC Sport está disponible en múltiples plataformas de streaming. Consulta nuestro sitio web para más información.",
+    "suscripcion": "Para información sobre suscripciones y paquetes, visita nuestra página web oficial o contacta a servicio al cliente."
+  },
+  "custom_instructions": [],
+  "last_updated": "2025-11-21T16:46:00.000Z"
+}
