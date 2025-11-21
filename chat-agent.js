@@ -170,9 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Convertir saltos de línea y formato
         let formattedText = text.replace(/\n/g, '<br>');
         
-        // Convertir listas con bullets
-        formattedText = formattedText.replace(/•/g, '•');
-        
         contentDiv.innerHTML = prefix + formattedText;
         messageDiv.appendChild(contentDiv);
         chatWindow.appendChild(messageDiv);
