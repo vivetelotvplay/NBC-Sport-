@@ -2,20 +2,47 @@
 
 Un agente de chat inteligente con respuestas preprogramadas y la capacidad de agregar nuevas instrucciones de forma dinámica.
 
+## 🌐 Demo en Vivo
+
+**¡Prueba el chat agent directamente en tu navegador!**
+
+👉 **[https://vivetelotvplay.github.io/NBC-Sport-/](https://vivetelotvplay.github.io/NBC-Sport-/)**
+
 ## 🌟 Características
 
+- **Interfaz Web Interactiva**: Usa el agente directamente desde tu navegador sin instalar nada.
 - **Respuestas Preprogramadas**: El agente viene con un conjunto de respuestas predefinidas para preguntas comunes sobre NBC Sport.
-- **Instrucciones Personalizables**: Puedes agregar nuevas instrucciones y respuestas en tiempo real.
-- **Historial de Conversación**: Mantiene un registro de todas las interacciones.
-- **Persistencia de Datos**: Las nuevas instrucciones se guardan automáticamente en un archivo de configuración.
+- **Historial de Conversación**: Mantiene un registro de todas las interacciones en el navegador.
+- **Persistencia Local**: El historial se guarda en tu navegador usando localStorage.
 - **Búsqueda Inteligente**: Busca coincidencias exactas y parciales en las palabras clave.
+- **Versión Python**: También disponible como aplicación de línea de comandos.
 
 ## 📋 Requisitos
 
+### Versión Web (GitHub Pages)
+- Ninguno - Solo necesitas un navegador web moderno
+- Accede directamente a: https://vivetelotvplay.github.io/NBC-Sport-/
+
+### Versión Python (Línea de Comandos)
 - Python 3.6 o superior
 - No requiere bibliotecas externas (solo módulos estándar de Python)
 
-## 🚀 Instalación
+## 🚀 Instalación y Uso
+
+### Opción 1: Usar la Versión Web (Recomendado)
+
+1. Simplemente visita: **[https://vivetelotvplay.github.io/NBC-Sport-/](https://vivetelotvplay.github.io/NBC-Sport-/)**
+2. ¡Empieza a chatear inmediatamente!
+
+### Opción 2: Configurar tu Propia Página de GitHub Pages
+
+1. Haz un fork de este repositorio
+2. Ve a Settings → Pages en tu repositorio
+3. En "Source", selecciona la rama `main` o `master`
+4. Guarda los cambios
+5. Tu sitio estará disponible en `https://TU-USUARIO.github.io/NBC-Sport-/`
+
+### Opción 3: Ejecutar Localmente (Versión Web)
 
 1. Clona este repositorio:
 ```bash
@@ -23,13 +50,20 @@ git clone https://github.com/vivetelotvplay/NBC-Sport-.git
 cd NBC-Sport-
 ```
 
-2. El agente está listo para usar, no requiere instalación adicional.
+2. Abre `index.html` en tu navegador web favorito, o usa un servidor local:
+```bash
+# Usando Python 3
+python3 -m http.server 8000
 
-## 💻 Uso
+# O usando Python 2
+python -m SimpleHTTPServer 8000
 
-### Ejecución Básica
+# Luego visita: http://localhost:8000
+```
 
-Para iniciar el agente de chat, ejecuta:
+### Opción 4: Versión Python (Línea de Comandos)
+
+Para usar la versión de línea de comandos:
 
 ```bash
 python3 chat_agent.py
@@ -37,7 +71,18 @@ python3 chat_agent.py
 
 ### Comandos Disponibles
 
-El agente de chat reconoce los siguientes comandos especiales:
+#### Versión Web
+El agente de chat web reconoce los siguientes comandos:
+
+| Comando | Descripción |
+|---------|-------------|
+| `/ayuda` | Muestra información de ayuda |
+| `/listar` | Lista todas las instrucciones disponibles |
+| `/historial` | Muestra el historial de conversación |
+| `/limpiar` | Limpia el historial de conversación |
+
+#### Versión Python (Línea de Comandos)
+La versión de Python incluye comandos adicionales:
 
 | Comando | Descripción |
 |---------|-------------|
@@ -103,13 +148,24 @@ Agente: NBC Sport transmite una amplia variedad de deportes...
 
 ```
 NBC-Sport-/
-├── chat_agent.py          # Código principal del agente de chat
-├── config.json            # Archivo de configuración con respuestas preprogramadas
+├── index.html             # Página principal del chat web (GitHub Pages)
+├── styles.css             # Estilos de la interfaz web
+├── chat-agent.js          # Lógica del agente de chat en JavaScript
+├── chat_agent.py          # Versión Python del agente (línea de comandos)
+├── config.json            # Archivo de configuración con respuestas
+├── example_usage.py       # Ejemplos de uso de la versión Python
+├── requirements.txt       # Dependencias (ninguna requerida)
+├── _config.yml            # Configuración de GitHub Pages
+├── .gitignore            # Archivos a ignorar en Git
 └── README.md              # Este archivo
 ```
 
 ## ⚙️ Configuración
 
+### Versión Web
+La versión web usa JavaScript y almacena las respuestas preprogramadas directamente en el código. El historial de conversación se guarda en el localStorage del navegador.
+
+### Versión Python
 El archivo `config.json` contiene las respuestas preprogramadas y las instrucciones personalizadas. Tiene la siguiente estructura:
 
 ```json

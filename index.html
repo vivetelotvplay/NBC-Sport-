@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agente de Chat NBC Sport</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏆 Agente de Chat NBC Sport</h1>
+            <p class="subtitle">Tu asistente deportivo inteligente</p>
+        </header>
+
+        <div class="chat-container">
+            <div class="chat-window" id="chatWindow">
+                <div class="message agent-message">
+                    <div class="message-content">
+                        <strong>Agente:</strong> ¡Bienvenido! Soy el agente de chat de NBC Sport. ¿En qué puedo ayudarte?
+                        <br><br>
+                        <em>Comandos disponibles:</em>
+                        <ul>
+                            <li>/ayuda - Muestra información de ayuda</li>
+                            <li>/listar - Lista todas las instrucciones disponibles</li>
+                            <li>/historial - Muestra el historial de conversación</li>
+                            <li>/limpiar - Limpia el historial de conversación</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-container">
+                <input 
+                    type="text" 
+                    id="userInput" 
+                    placeholder="Escribe tu mensaje aquí..." 
+                    autocomplete="off"
+                >
+                <button id="sendButton">Enviar</button>
+            </div>
+        </div>
+
+        <footer>
+            <p>Desarrollado con ❤️ para NBC Sport | <a href="https://github.com/vivetelotvplay/NBC-Sport-" target="_blank">Ver en GitHub</a></p>
+        </footer>
+    </div>
+
+    <script src="chat-agent.js"></script>
+</body>
+</html>
