@@ -285,9 +285,9 @@ Para preguntas o soporte, por favor contacta a través del repositorio de GitHub
 
 Próximas características planificadas:
 
+- [x] Interfaz web (¡Ya disponible!)
 - [ ] Integración con base de datos
 - [ ] API REST para acceso remoto
-- [ ] Interfaz web
 - [ ] Procesamiento de lenguaje natural (NLP) para respuestas más inteligentes
 - [ ] Soporte multiidioma
 - [ ] Análisis de sentimientos
