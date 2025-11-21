@@ -42,6 +42,8 @@ Un agente de chat inteligente con respuestas preprogramadas y la capacidad de ag
 4. Guarda los cambios
 5. Tu sitio estará disponible en `https://TU-USUARIO.github.io/NBC-Sport-/`
 
+📖 **[Ver guía detallada de configuración](SETUP_GITHUB_PAGES.md)**
+
 ### Opción 3: Ejecutar Localmente (Versión Web)
 
 1. Clona este repositorio:
