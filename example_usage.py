@@ -3,6 +3,7 @@
 Ejemplo de uso del agente de chat NBC Sport
 """
 
+import os
 from chat_agent import ChatAgent
 
 
@@ -103,7 +104,6 @@ def main():
         print("=" * 60)
         
         # Limpiar archivos de demo
-        import os
         if os.path.exists('config_demo.json'):
             os.remove('config_demo.json')
             print("\n✓ Archivos de demo limpiados")

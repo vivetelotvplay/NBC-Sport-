@@ -108,10 +108,16 @@ class ChatAgent:
         if message_lower in self.responses:
             return self.responses[message_lower]
         
-        # Buscar coincidencia parcial
+        # Buscar coincidencia parcial (priorizar palabras clave más largas)
+        matches = []
         for keyword, response in self.responses.items():
             if keyword in message_lower:
-                return response
+                matches.append((len(keyword), keyword, response))
+        
+        # Retornar la coincidencia con la palabra clave más larga
+        if matches:
+            matches.sort(reverse=True)  # Ordenar por longitud descendente
+            return matches[0][2]  # Retornar la respuesta
         
         return None
     
@@ -204,9 +210,11 @@ def main():
                 break
             
             elif user_input.lower() == '/ayuda':
-                agent.process_message("ayuda")
-                response = agent.conversation_history[-1]['agent']
-                print(f"\nAgente: {response}")
+                response = agent.find_response("ayuda")
+                if response:
+                    print(f"\nAgente: {response}")
+                else:
+                    print("\nAgente: Comando de ayuda disponible. Usa palabras clave como 'hola', 'deportes', 'horarios' o usa /listar para ver todas las opciones.")
             
             elif user_input.lower() == '/listar':
                 agent.list_instructions()
